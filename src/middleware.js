@@ -1,3 +1,14 @@
-export { default } from "next-auth/middleware"
+import { withAuth } from "next-auth/middleware";
 
-export const config = { matcher: ["/home"] }
+export default withAuth(function middleware(req) {
+  return null;
+}, {
+  callbacks: {
+    authorized: async ({ token }) => !!token,
+  },
+  pages: {
+    signIn: "/login",
+  },
+});
+
+export const config = { matcher: ["/home"] };

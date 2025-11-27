@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import {Kavivanar} from "next/font/google";
+import {Lexend} from "next/font/google";
 import "./globals.css";
 
-const kavivanar = Kavivanar({
-  weight: "400",
+const lexend = Lexend({
   subsets: ["latin"],
+  weight: ["400"],
 });
 
+
 export const metadata = {
-  title: "PerpustakaanKu",
-  description: "Landing page sederhana untuk perpustakaan digital",
+  title: "Sarana-Prasarana",
+  description: "Landing page sederhana untuk Sapras digital",
 };
 export default function RootLayout({
   children,
@@ -18,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-white text-gray-800 font-sans">{children}</body>
+      <body className={`bg-white text-gray-800 font-sans ${lexend.className} min-h-screen w-full sm:w-auto`}>{children}</body>
     </html>
   );
 }
