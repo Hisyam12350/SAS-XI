@@ -1,4 +1,6 @@
 import { getAlatByCategory } from "../../../../lib/action";
+// Force this page to be a server component and always fetch fresh data
+export const dynamic = "force-dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { Lexend } from "next/font/google";
@@ -12,14 +14,15 @@ const lexend = Lexend({
 export default async function CategoryPage({ params }) {
   const { name } = await params;
   
-  // Map slug ke nama kategori yang sebenarnya
-  const slugMap = {
-    'elektronik': 'Elektronik',
-    'habis-pakai': 'Habis Pakai',
-    'olahraga': 'Olahraga',
-    'mabler': 'Mabler',
-  };
   
+  // Map slug ke nama kategori yang sesuai database (enum lowercase)
+  const slugMap = {
+    'elektronik': 'elektronik',
+    'mabler': 'mabler',
+    'olahraga': 'olahraga',
+    'habis-pakai': 'habisPakai',
+  };
+
   const categoryName = slugMap[name] || name;
   const barang = await getAlatByCategory(categoryName);
 
