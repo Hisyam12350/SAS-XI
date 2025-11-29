@@ -3,14 +3,14 @@ import { simpanUser } from "../../../lib/action";
 
 export default function RegisterPage() {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
+        <div className="min-h-screen flex items-center justify-center bg-linear-to-tr from-blue-200 via-purple-200 to-pink-200 py-12 px-4">
             <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8">
                 <div className="text-center mb-6">
                     <h1 className="text-2xl font-bold text-gray-800">Buat Akun Baru</h1>
                     <p className="text-sm text-gray-500 mt-1">Daftar untuk mulai meminjam barang</p>
                 </div>
 
-                <form action={simpanUser} className="space-y-4">
+                <form action={simpanUser} className="space-y-4 ">
                     <div>
                         <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
                             Username
@@ -54,7 +54,7 @@ export default function RegisterPage() {
                         />
                     </div>
 
-                    <input type="hidden" name="role" value="user" />
+                    <input type="hidden" name="role" value="sekertaris" />
 
                     <div>
                         <button

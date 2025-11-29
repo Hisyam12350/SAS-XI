@@ -3,6 +3,7 @@ import { getUserByEmail } from "../../../lib/action";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import Image from "next/image";
+import LogoutButton from "../components/LogoutButton";
 
 export default async function ProfilePage() {
   // Ambil session dari NextAuth
@@ -10,7 +11,7 @@ export default async function ProfilePage() {
 
   if (!session || !session.user || !session.user.email) {
     return (
-      <div className={`min-h-screen flex items-center justify-center bg-linear-to-br from-blue-100 via-purple-100 to-pink-100 ${lexend.className}`}>
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-100 via-purple-100 to-pink-100">
         <div className="max-w-md w-full bg-white p-10 rounded-2xl shadow-xl border border-blue-200">
           <h2 className="text-3xl font-bold mb-4 text-blue-700">Anda belum masuk</h2>
           <p className="text-gray-600 mb-8">Silakan masuk terlebih dahulu untuk melihat profil Anda.</p>
@@ -82,6 +83,9 @@ export default async function ProfilePage() {
               <li><strong className="text-blue-700">Role:</strong> {user.role || '-'}</li>
             </ul>
           </div>
+        </div>
+        <div className="mt-10 flex justify-end">
+            <LogoutButton></LogoutButton>
         </div>
       </div>
     </div>
