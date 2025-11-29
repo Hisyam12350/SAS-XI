@@ -54,7 +54,7 @@ export default function RegisterPage() {
                         />
                     </div>
 
-                    <input type="hidden" name="role" value="sekertaris" />
+                    <input type="hidden" name="role" value="user" />
 
                     <div>
                         <button

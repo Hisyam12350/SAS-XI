@@ -2,10 +2,26 @@ import Image from "next/image";
 import Link from "next/link";
 import {getAlat} from "../../../lib/action";
 import { getImagePath } from "../../../lib/images";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import { redirect } from "next/dist/server/api-utils";
 
 
 export default async function Home() {
   const alat = await getAlat();
+  const session = await getServerSession(authOptions);
+  const users = session?.user;
+  console.log('Session di Home Page:', session);
+  console.log('Session di Home Page:', users.role);
+  if (users && users.role ) {
+    if (users.role === 'sekertaris') {
+      return redirect('/sekertaris');
+    }
+    else  {
+    } 
+  }
+
+
 
   return (
     <div className={`min-h-screen flex flex-col bg-linear-to-br from-blue-100 via-purple-100 to-pink-100 text-gray-800`}>
