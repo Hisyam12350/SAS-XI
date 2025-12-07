@@ -2,10 +2,13 @@ import { getAlatById } from "../../../../lib/action";
 import Image from "next/image";
 import Link from "next/link";
 import { getImagePath } from "../../../../lib/images";
+import FormPinjamModal from "../../components/FormPinjamModal";
+import { getCurrentUser } from "../../../../lib/auth";
 
 export default async function DetailAlat({ params }) {
   const { id } = await params;
   const alat = await getAlatById(id);
+  const currentUser = await getCurrentUser();
 
   if (!alat) {
     return (
@@ -89,9 +92,16 @@ export default async function DetailAlat({ params }) {
 
           {/* Tombol Aksi */}
           <div className="flex gap-4">
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
-              📌 Pinjam Alat
-            </button>
+            {currentUser ? (
+              <FormPinjamModal alat={alat} user={currentUser} />
+            ) : (
+              <Link
+                href="/login"
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold"
+              >
+                Login untuk Pinjam
+              </Link>
+            )}
             <Link
               href="/home"
               className="bg-white text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-400 transition font-semibold"

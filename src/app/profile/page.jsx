@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getUserByEmail } from "../../../lib/action";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]/route";
+import LogoutButton from "../components/LogoutButton";
 import Image from "next/image";
 
 export default async function ProfilePage() {
@@ -82,6 +83,9 @@ export default async function ProfilePage() {
               <li><strong className="text-blue-700">Role:</strong> {user.role || '-'}</li>
             </ul>
           </div>
+        </div>
+        <div className="mt-10 flex justify-end">
+            <LogoutButton></LogoutButton>
         </div>
       </div>
     </div>

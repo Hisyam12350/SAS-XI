@@ -1,10 +1,16 @@
 "use client"
 
 import Link from "next/link";
-import { signIn } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
 export default function LoginPage() {
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+
     async function handleLogin(formData) {
+        setIsLoading(true);
 
         const response = await signIn("credentials", {
             email: formData.get("email"),
@@ -13,12 +19,25 @@ export default function LoginPage() {
         })
 
         if(!response.ok){
-            alert("Login Gagal")
+            alert("Login Gagal - Email atau password salah")
+            setIsLoading(false);
             return
         }
-        alert("Berhasil Login")
-        redirect("/home")
 
+        // Ambil session untuk cek role
+        const sessionResponse = await fetch('/api/auth/session');
+        const session = await sessionResponse.json();
+        
+        // Redirect berdasarkan role
+        if (session?.user?.role === 'sekertaris') {
+            alert("Berhasil Login sebagai Sekertaris");
+            router.push('/sekertaris');
+        } else {
+            alert("Berhasil Login");
+            router.push('/home');
+        }
+        
+        setIsLoading(false);
     }
 
         return(
@@ -42,8 +61,12 @@ export default function LoginPage() {
                             placeholder="Password"
                         />
 
-                        <button className="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-semibold" type="submit">
-                            Login
+                        <button 
+                            className="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-semibold disabled:bg-gray-400 disabled:cursor-not-allowed" 
+                            type="submit"
+                            disabled={isLoading}
+                        >
+                            {isLoading ? 'Loading...' : 'Login'}
                         </button>
 
                         <div className="text-center text-sm text-gray-600 mt-3">

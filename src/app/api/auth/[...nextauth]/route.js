@@ -30,6 +30,24 @@ export const authOptions = {
             }
         })
     ],
+    callbacks: {
+        async jwt({ token, user }) {
+            // Tambahkan role ke token saat login
+            if (user) {
+                token.id = user.id;
+                token.role = user.role;
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            // Tambahkan role ke session
+            if (token) {
+                session.user.id = token.id;
+                session.user.role = token.role;
+            }
+            return session;
+        }
+    }
 }
 
 

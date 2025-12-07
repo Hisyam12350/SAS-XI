@@ -2,9 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 import {getAlat} from "../../../lib/action";
 import { getImagePath } from "../../../lib/images";
-
+import { getCurrentUser } from "../../../lib/auth";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
+  const currentUser = await getCurrentUser();
+  
+  // Redirect ke login jika belum login
+  if (!currentUser) {
+    redirect('/login');
+  }
+  
+  // Redirect ke halaman sekretaris jika role adalah sekretaris
+  if (currentUser.role === 'sekertaris') {
+    redirect('/sekertaris');
+  }
+  
   const alat = await getAlat();
 
   return (
@@ -15,9 +28,11 @@ export default async function Home() {
             <Image src="/barang/icon.jpg" alt="Logo" width={32} height={32} />
             <Link href="/home"><h1 className="text-xl md:text-2xl font-bold text-blue-500 ">Lif-Pas</h1></Link>
           </div>
-              <ul className="flex gap-6 text-lg font-medium md:text-md">
+              <ul className="flex gap-6 text-lg font-medium md:text-md items-center">
                 <li><a href="#" className="hover:text-blue-600">Home</a></li>
                 <li><a href="/kategori" className="hover:text-blue-600">Kategori</a></li>
+                <li><a href="/pinjam/riwayat" className="hover:text-blue-600">Riwayat</a></li>
+                <li className="text-sm text-gray-600">Halo, {currentUser.username}</li>
                 <Link href={'/profile'}>
                   <Image src="/barang/image.png" alt="User" width={32} height={32} className="rounded-full"/>
                 </Link>
