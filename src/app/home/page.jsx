@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import {getAlat} from "../../../lib/action";
+import { redirect } from "next/navigation";
+import { getAlat } from "../../../lib/action";
 import { getImagePath } from "../../../lib/images";
 import { getCurrentUser } from "../../../lib/auth";
-import { redirect } from "next/navigation";
+
 
 export default async function Home() {
   const currentUser = await getCurrentUser();
@@ -19,6 +20,8 @@ export default async function Home() {
   }
   
   const alat = await getAlat();
+
+
 
   return (
     <div className={`min-h-screen flex flex-col bg-linear-to-br from-blue-100 via-purple-100 to-pink-100 text-gray-800`}>

@@ -9,7 +9,7 @@ export const authOptions = {
         signIn: "/login"
     },
     providers: [
-        CredentialsProvider ({
+        CredentialsProvider({
             async authorize(credentials, req) {
                 // 1. Unboxing data email sm password
                 const email = credentials.email

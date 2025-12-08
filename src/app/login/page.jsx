@@ -41,12 +41,15 @@ export default function LoginPage() {
     }
 
         return(
-            <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
+            <div className="min-h-screen flex items-center justify-center bg-linear-to-tr from-blue-200 via-purple-200 to-pink-200 px-4 py-12">
                 <div className="w-full max-w-md bg-white border border-gray-200 rounded-xl shadow-md p-8">
                     <h1 className="text-2xl font-semibold text-gray-800 mb-2">Login</h1>
                     <p className="text-sm text-gray-500 mb-6">Masuk untuk melanjutkan</p>
 
                     <form action={handleLogin} className="flex flex-col gap-4 text-black">
+                        <label htmlFor="email" className="block -mb-3 text-sm font-medium text-gray-700">
+                            Email
+                        </label>
                         <input
                             className="border border-black rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                             type="email"
@@ -54,6 +57,9 @@ export default function LoginPage() {
                             placeholder="Email"
                         />
 
+                        <label htmlFor="password" className="block text-sm -mb-3 font-medium text-gray-700">
+                            Password
+                        </label>
                         <input
                             className="border border-black rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                             type="password"
@@ -69,9 +75,10 @@ export default function LoginPage() {
                             {isLoading ? 'Loading...' : 'Login'}
                         </button>
 
-                        <div className="text-center text-sm text-gray-600 mt-3">
+                        <div className="mt-6 text-center text-sm text-gray-600">
+                            Belum punya akun?{' '}
                             <Link href="/register" className="text-blue-600 hover:underline">
-                                Don't have an account? Register
+                                       Register
                             </Link>
                         </div>
                     </form>
