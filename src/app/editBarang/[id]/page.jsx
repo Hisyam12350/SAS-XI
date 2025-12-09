@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { ambilBarang, editBarang,} from "../../../../lib/action";
 export default async function EditBarangPage({ params }) {
+        // Fix: params is a promise in Next.js dynamic route, so await it first
+        const ambilId = await params;
         const barang = await ambilBarang();
-        console.log('params.id:', params.id);
+        console.log('params.id:', ambilId.id);
         console.log('barang:', barang);
-            // Fix: params is a promise in Next.js dynamic route, so await it
-            const  ambilId  = await params;
-            const barangs = barang.find(a => a.id === parseInt(ambilId.id));
+        const barangs = barang.find(a => a.id === parseInt(ambilId.id));
         if (!barangs) {
             return (
                 <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
@@ -19,7 +19,8 @@ export default async function EditBarangPage({ params }) {
         }
         return (
             <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
-                <form action={editBarang} className="space-y-4">
+                <form action={editBarang} className="space-y-4 max-w-md w-full bg-white p-8 rounded-lg shadow-md">
+                    <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Edit Barang</h1>
                     <div>
                         <input type="hidden" id="id" name="id" defaultValue={barangs.id} />
                         <label htmlFor="namaBarang" className="block text-sm font-medium text-gray-700 mb-1">
@@ -64,6 +65,31 @@ export default async function EditBarangPage({ params }) {
                             placeholder="Minimal jumlah stok"
                         />
                     </div>
+                    <div>
+                        <label htmlFor="kategori" className="block text-sm font-medium text-gray-700 mb-1">
+                            Kategori
+                        </label>
+                        <select 
+                            name="kategori" 
+                            id="kategori"
+                            defaultValue={barangs.kategori || ""}
+                            className="w-full px-3 py-2 border text-black border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        >
+                            <option value="">-- Pilih Kategori --</option>
+                            <option value="elektronik">Elektronik</option>
+                            <option value="mabler">Mabler</option>
+                            <option value="olahraga">Olahraga</option>
+                            <option value="habisPakai">Habis Pakai</option>
+                        </select>
+                    </div>
+                    {barangs.gambar && (
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Gambar Saat Ini
+                            </label>
+                            <p className="text-xs text-gray-500">{barangs.gambar}</p>
+                        </div>
+                    )}
                     <div>
                         <button
                             type="submit"
