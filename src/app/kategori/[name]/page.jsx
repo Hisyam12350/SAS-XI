@@ -29,29 +29,29 @@ export default async function CategoryPage({ params }) {
   return (
     <div className={lexend.className}>
       {/* Header */}
-      <header className="flex justify-between items-center px-10 py-6 bg-white shadow">
-        <Link href="/" className="text-2xl font-bold text-blue-600">
+      <header className="flex justify-between items-center px-4 md:px-10 py-4 md:py-6 bg-white shadow">
+        <Link href="/" className="text-lg md:text-2xl font-bold text-blue-600">
           Lif-Pus
         </Link>
-        <Link href="/kategori" className="text-blue-600 hover:underline">
-          ← Kembali ke Kategori
+        <Link href="/kategori" className="text-sm md:text-base text-blue-600 hover:underline">
+          ← Kembali
         </Link>
       </header>
 
       {/* Main Content */}
       <main className="min-h-screen bg-linear-to-br from-blue-100 via-purple-100 to-pink-100 text-gray-800">
-        <section className="max-w-6xl mx-auto py-16 px-6">
+        <section className="max-w-6xl mx-auto py-8 md:py-16 px-4 md:px-6">
           {/* Title */}
-          <div className="mb-10">
-            <h1 className="text-4xl font-bold mb-2 capitalize">Kategori: {categoryName}</h1>
-            <p className="text-gray-600">
+          <div className="mb-6 md:mb-10">
+            <h1 className="text-2xl md:text-4xl font-bold mb-2 capitalize">Kategori: {categoryName}</h1>
+            <p className="text-sm md:text-base text-gray-600">
               Menampilkan {barang.length} barang dalam kategori {categoryName}
             </p>
           </div>
 
           {/* Barang Grid */}
           {barang.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
               {barang.map((item) => {
                 const gambarUrl = getImagePath(item);
                 return (
@@ -69,13 +69,13 @@ export default async function CategoryPage({ params }) {
                           className="object-contain"
                         />
                       </div>
-                      <h3 className="text-xl font-semibold mb-2 line-clamp-2">
+                      <h3 className="text-base md:text-xl font-semibold mb-2 line-clamp-2">
                         {item.namaBarang}
                       </h3>
-                      <p className="text-sm text-gray-500 mb-2">
+                      <p className="text-xs md:text-sm text-gray-500 mb-2">
                         Kategori: {item.kategori}
                       </p>
-                      <p className="text-md text-gray-600 mt-auto">
+                      <p className="text-sm md:text-md text-gray-600 mt-auto">
                         Stok: <span className="font-semibold text-green-600">{item.stok || 0}</span>
                       </p>
                     </div>
@@ -84,11 +84,11 @@ export default async function CategoryPage({ params }) {
               })}
             </div>
           ) : (
-            <div className="text-center py-20">
-              <p className="text-xl text-gray-500 mb-4">
+            <div className="text-center py-12 md:py-20">
+              <p className="text-base md:text-xl text-gray-500 mb-4">
                 Tidak ada barang dalam kategori "{categoryName}"
               </p>
-              <Link href="/kategori" className="text-blue-600 hover:underline">
+              <Link href="/kategori" className="text-sm md:text-base text-blue-600 hover:underline">
                 Kembali ke Kategori
               </Link>
             </div>
